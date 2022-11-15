@@ -11,10 +11,10 @@
     <div class="container-fluid">
         <a class="navbar-brand"><h1>List Student</h1> </a>
 
-        <form class="d-flex" th:action="@{/student/search}" th:object="${search}" method="post">
-            <input class="form-control me-2" type="text" placeholder="Search" name="searchName">
-            <input type="hidden" name="action" value="searchByName">
-            <button class="btn btn-primary" type="submit">Search</button>
+        <form class="d-flex">
+            <input class="form-control me-2" type="text" placeholder="Search" name="search">
+            <input type="hidden" name="action" value="search">
+            <input type="submit" value="Search">
         </form>
         <a href="/student/showFormCreate" class="btn btn-outline-success">Create new Student</a>
     </div>
@@ -36,7 +36,7 @@
             <td th:text="${student.address}"></td>
             <td th:text="${student.phoneNumber}"></td>
             <td th:text="${student.email}"></td>
-            <td th:text="${student.classRoom}"></td>
+            <td th:text="${student.classRoom?.className}"></td>
             <td><a th:href="@{/student/edit/__${student.id}__}" class="btn btn-info">Edit</a></td>
             <td><a th:href="@{/student/delete/__${student.id}__}" class="btn btn-danger">Delete</a></td>
         </tr>

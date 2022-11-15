@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body style="text-align: center">
-<h1>Delete Product</h1>
+<h1>Delete Student</h1>
 <h2>Are you sure?</h2>
 
 <form th:action="@{/student/delete}" th:object="${student}" method="post">
@@ -39,7 +39,7 @@
         <tr>
             <td></td>
             <td><input type="submit" value="Delete city" class="btn btn-danger">
-                <a href="/city/list" class="btn btn-info">Back List</a></td>
+                <a href="/student/list" class="btn btn-info">Back List</a></td>
         </tr>
     </table>
 </form>

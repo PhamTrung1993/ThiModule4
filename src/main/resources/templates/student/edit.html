@@ -46,18 +46,18 @@
         <tr>
             <td>Class room:</td>
             <td>
-                <select name="class room">
-                    <option th:each="c : ${classrooms}"
-                            th:value="${c.id}"
-                            th:text="${c.className}"
-                            th:selected="(${student.classRoom}) and (${c.id} == *{classRoom.id})"></option>
+                <select name="class room" th:field="*{classRoom}">
+                    <option th:each="class : ${classrooms}"
+                            th:value="${class.id}"
+                            th:text="${class.className}"
+                            th:selected="(${student.classRoom}) and (${class.id} == *{classRoom.id})"></option>
                 </select>
             </td>
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Update City" class="btn btn-info">
-                <a class="btn btn-info" href="/city/list">Back List</a></td>
+            <td><input type="submit" value="Update Student" class="btn btn-info">
+                <a class="btn btn-info" href="/student/list">Back List</a></td>
         </tr>
     </table>
 </form>

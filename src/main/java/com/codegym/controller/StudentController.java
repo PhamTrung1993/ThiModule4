@@ -27,9 +27,15 @@ public class StudentController {
     }
 
     @GetMapping("/list")
-    public ModelAndView listStudent() {
+    public ModelAndView listStudent(@RequestParam("search") Optional<String> search) {
+        Iterable<Student> students;
+        if (search.isPresent()) {
+            students = studentService.findAllByStudentName(search.get());
+        }else {
+            students = studentService.findAll();
+        }
         ModelAndView modelAndView = new ModelAndView("/student/list");
-        modelAndView.addObject("students",studentService.findAll());
+        modelAndView.addObject("students",students);
         return modelAndView;
     }
     @GetMapping("/showFormCreate")
@@ -50,7 +56,7 @@ public class StudentController {
     public ModelAndView showEditForm(@PathVariable Long id) {
         Optional<Student> student = studentService.findById(id);
         if (student.isPresent()) {
-            ModelAndView modelAndView = new ModelAndView("/student/edit");
+            ModelAndView modelAndView = new ModelAndView("student/edit");
             modelAndView.addObject("student", student.get());
             return modelAndView;
         } else {
@@ -83,15 +89,5 @@ public class StudentController {
         return "redirect:Student";
     }
 
-    @PostMapping("/search")
-    public ModelAndView showEditForm(@ModelAttribute("search") String studentName) {
-        Iterable<Student> students = studentService.findAllByStudentName(studentName);
-        if (students != null ) {
-            ModelAndView modelAndView = new ModelAndView("/student/list");
-            modelAndView.addObject("students",students);
-            return modelAndView;
-        } else {
-            return new ModelAndView("/error-404");
-        }
-    }
+
 }
