@@ -25,7 +25,7 @@ public class Student {
     @Column(columnDefinition = "nvarchar(100)")
     private String studentName;
 
-    private Date dateOfBirth;
+    private String dateOfBirth;
 
     @Column(columnDefinition = "nvarchar(100)")
     private String address;

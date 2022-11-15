@@ -29,4 +29,9 @@ public class StudentService implements IStudentService{
     public void remove(Long id) {
         studentRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<Student> findAllByStudentName(String studentName) {
+        return studentRepository.findAllByStudentName(studentName);
+    }
 }

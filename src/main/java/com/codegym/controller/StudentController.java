@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,7 +21,7 @@ public class StudentController {
     @Autowired
     private IClassRoomService classRoomService;
 
-    @ModelAttribute("categories")
+    @ModelAttribute("classrooms")
     public Iterable<ClassRoom> categories(){
         return classRoomService.findAll();
     }
@@ -28,7 +29,7 @@ public class StudentController {
     @GetMapping("/list")
     public ModelAndView listStudent() {
         ModelAndView modelAndView = new ModelAndView("/student/list");
-        modelAndView.addObject("student",studentService.findAll());
+        modelAndView.addObject("students",studentService.findAll());
         return modelAndView;
     }
     @GetMapping("/showFormCreate")
@@ -38,7 +39,7 @@ public class StudentController {
         return modelAndView;
     }
     @PostMapping("/create")
-    public ModelAndView saveStudent(@ModelAttribute("city") Student student) {
+    public ModelAndView saveStudent(@ModelAttribute("student") Student student) {
         studentService.save(student);
         ModelAndView modelAndView = new ModelAndView("/student/create");
         modelAndView.addObject("student", new Student());
@@ -80,5 +81,17 @@ public class StudentController {
     public String deleteStudent(@ModelAttribute("city") Student student) {
         studentService.remove(student.getId());
         return "redirect:Student";
+    }
+
+    @PostMapping("/search/{studentName}")
+    public ModelAndView showEditForm(@PathVariable String studentName) {
+        Iterable<Student> students = studentService.findAllByStudentName(studentName);
+        if (students != null ) {
+            ModelAndView modelAndView = new ModelAndView("/student/list");
+            modelAndView.addObject("students",students);
+            return modelAndView;
+        } else {
+            return new ModelAndView("/error-404");
+        }
     }
 }
