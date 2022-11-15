@@ -22,7 +22,7 @@ public class StudentController {
     private IClassRoomService classRoomService;
 
     @ModelAttribute("classrooms")
-    public Iterable<ClassRoom> categories(){
+    public Iterable<ClassRoom> classRooms(){
         return classRoomService.findAll();
     }
 
@@ -78,13 +78,13 @@ public class StudentController {
         }
     }
     @PostMapping("/delete")
-    public String deleteStudent(@ModelAttribute("city") Student student) {
+    public String deleteStudent(@ModelAttribute("student") Student student) {
         studentService.remove(student.getId());
         return "redirect:Student";
     }
 
-    @PostMapping("/search/{studentName}")
-    public ModelAndView showEditForm(@PathVariable String studentName) {
+    @PostMapping("/search")
+    public ModelAndView showEditForm(@ModelAttribute("search") String studentName) {
         Iterable<Student> students = studentService.findAllByStudentName(studentName);
         if (students != null ) {
             ModelAndView modelAndView = new ModelAndView("/student/list");
